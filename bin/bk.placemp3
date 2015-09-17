@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# 对压缩文件进行测试
+
+import os
+import sys
+import glob
+import shutil
+
+cwd = os.getcwd()
+
+files = glob.glob('*.mp3')
+
+for filename in files:
+    uu = filename.split('-')
+    if len(uu) > 1:
+        out_folder = os.path.join(cwd, uu[0])
+        if os.path.exists(out_folder):
+            pass
+        else:
+            os.mkdir(out_folder)
+        infile = os.path.join(cwd, filename)
+        outfile = os.path.join(out_folder,filename)
+        shutil.move(infile, outfile)
+

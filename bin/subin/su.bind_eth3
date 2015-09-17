@@ -1,0 +1,10 @@
+mkdir /dev/shm/v
+chmod 1777 /dev/shm/v
+mount --bind /dev/shm/v /v
+# ntfs-3g /dev/sdb3 /home/win
+# mount /dev/sdb4 /home/bk/ws
+
+ifconfig eth3 down
+ifconfig eth3 hw ether 00e0815cb40f
+ifconfig eth3 up
+/usr/local/itt/idl/idl/bin/lmgrd

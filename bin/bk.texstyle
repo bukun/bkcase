@@ -1,0 +1,6 @@
+#!/bin/bash
+RWD=/home/bk/progs/latex/style
+PWD=`pwd`
+ln -s $RWD/t410.sty $PWD/t410.sty
+ln -s $RWD/t410tp.cls $PWD/t410tp.cls
+

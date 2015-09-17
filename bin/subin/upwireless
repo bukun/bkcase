@@ -1,0 +1,5 @@
+rfkill  block all
+rfkill  unblock all
+rfkill  unblock all
+
+

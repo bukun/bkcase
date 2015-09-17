@@ -1,0 +1,4 @@
+rm -rf /usr/portage/*
+rm -rf /var/tmp/portage/*
+emerge --sync
+

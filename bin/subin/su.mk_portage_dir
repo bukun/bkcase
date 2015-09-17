@@ -1,0 +1,9 @@
+mkdir /home/portage
+mkdir /home/ccache
+mkdir /home/portage/distfiles
+mkdir /home/portage/logdir
+mkdir /home/portage/portage
+mkdir /home/portage/build
+mkdir /home/portage/portage2
+
+ 

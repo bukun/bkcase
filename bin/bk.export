@@ -1,0 +1,11 @@
+export IDL_DIR=/home/bk/.sysconf/usr/itt/idl/idl
+export PYTHONPATH=/home/bk/progs/python/bklib
+export ANC_PATH=/home/bk/temp/ANC
+export MRT_HOME=/home/bk/.sysconf/usr/MRT
+export MRT_DATA_DIR=$MRT_HOME/data
+
+LEDAPS_BIN=/home/bk/.sysconf/usr/ledapsSrc/bin
+BK_BIN=/home/bk/usr/bin
+MRT_BIN=$MRT_HOME/bin
+HDF4_BIN=/home/bk/.sysconf/usr/hdf-4.2.6-linux-x86_64/bin
+export PATH=$BK_BIN:$MRT_BIN:$LEDAPS_BIN:$HDF4_BIN:$PATH

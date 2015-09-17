@@ -1,0 +1,21 @@
+#!/usr/bin/python2
+import os, sys
+import time, datetime
+
+now_time = time.localtime()
+uu = now_time[0]  * 100 + now_time[1]
+uu = uu * 100 + now_time[2]
+uu = uu * 100 + now_time[3]
+uu = uu * 100 + now_time[4]
+uu = uu * 100 + now_time[5]
+print(uu)
+import pygtk
+pygtk.require('2.0')
+import gtk
+# get the clipboard
+clipboard = gtk.clipboard_get()
+# set the clipboard text data
+clipboard.set_text(str(uu))
+
+# make our data available to other applications
+clipboard.store()

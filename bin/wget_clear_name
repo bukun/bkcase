@@ -1,0 +1,33 @@
+#!/usr/bin/php
+  # Author: hutuworm 
+  # Date: 20031115 
+  <?php
+  function traveldir($dirname)
+  {
+   if($dirname[strlen($dirname)-1]!='/')
+   $dirname.='/';
+   $dirhandle=opendir($dirname);
+   while($file=readdir($dirhandle))
+   {
+   if($file=='.'||$file=='..')
+   continue;
+   if(is_dir($dirname.$file))
+   {
+   $newname=quoted_printable_decode(ereg_replace("%","=",$dirname.$file));
+   $realname='"'.$newname.'"';
+   $oldname='"'.$dirname.$file.'"';
+   if($oldname!=$realname)
+   system("mv $oldname $realname");
+   traveldir($newname.'/');
+   } else
+   continue;
+   }
+   closedir($dirhandle);
+  }
+  if(isset($argv[1]) && is_dir($argv[1]))
+  {
+   $targetdir=$argv[1];
+   traveldir($targetdir);
+  } else
+   echo "Usage: ./dirdecode.php /path/to/dir \n";
+  ?>

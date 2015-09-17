@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# 对压缩文件进行测试
+import os
+import glob
+import shutil
+import sys
+type = sys.argv[1]
+outfile = '/v/del2.sh'
+pwd = os.getcwd()
+indir = pwd
+outdir = pwd + os.sep + 'testright'
+if os.path.exists(outdir):
+    pass
+else:
+    os.mkdir(outdir)
+gzs = glob.glob('*.' + type)
+for gz in gzs:
+    filename = indir + os.sep + gz
+    outname = indir + os.sep + gz + '.7z'
+    if os.path.exists(outname):
+        pass
+    else:
+        testcmd = '7z a ' + outname + ' ' + filename
+        re = os.popen(testcmd).readlines()
+        jre2 = [x.replace('\n', '') for x in re]
+

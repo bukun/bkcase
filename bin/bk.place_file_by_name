@@ -1,0 +1,42 @@
+#!/usr/bin/python
+# -*- coding:utf-8 -*-
+# place the file by it's file names.
+import os
+import sys
+import shutil
+
+def place_file(indir, outdir, file_type, subdir_names):
+    for wroot, wdirs, wfiles in os.walk(indir):
+        for wfile in wfiles:
+            if wfile.endswith(file_type):
+                # The path that the file will be placed.
+                outdirpath = outdir
+                for subdir_name in subdir_names:
+                    (qian, hou) = subdir_name.split('_')
+                    (qian,hou) = [int(x) for x in (qian, hou)]
+                    subdir = wfile[qian: hou]
+                    outdirpath = os.path.join(outdirpath, subdir)
+                    if os.path.exists(outdirpath):
+                        pass
+                    else:
+                        os.mkdir(outdirpath)
+                # The file will be move.
+                infile = os.path.join(wroot, wfile)
+                # The aim.
+                outfile = os.path.join(outdirpath, wfile)
+                shutil.move(infile, outfile)
+if __name__ == '__main__':
+    if len(os.sys.argv) <= 4:
+        print('bk.place_file_by_name indir outdir file_type 0_3 3_6 * ')
+        sys.exit()
+
+    cwd = os.getcwd()
+    indir = os.sys.argv[1] 
+    outdir = os.sys.argv[2]
+    if os.path.exists(outdir):
+        pass
+    else:
+        os.mkdir(outdir)
+    file_type = os.sys.argv[3]
+    subdir_names = sys.argv[4:]
+    place_file(indir, outdir, file_type, subdir_names)

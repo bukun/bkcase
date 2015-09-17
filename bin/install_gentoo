@@ -1,0 +1,14 @@
+emerge p7zip
+emerge gdal
+emerge grass
+emerge python
+emerge abiword
+emerge mc
+emerge mutt
+emerge moc
+emerge gvim
+emerge mplayer
+emerge lftp
+emerge rpy
+emerge texlive-xetex
+

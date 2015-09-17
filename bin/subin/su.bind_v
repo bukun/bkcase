@@ -1,0 +1,3 @@
+sudo mkdir /dev/shm/v
+sudo chmod 1777 /dev/shm/v
+sudo mount --bind /dev/shm/v /v

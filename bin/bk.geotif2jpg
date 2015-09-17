@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+import os
+def img_to_jpg(infile, outfile):
+    '''
+    将遥感影像转换为JPEG文件，以减小数据大小。
+    '''
+    runcmd = 'gdal_translate -ot Byte -of JPEG ' + infile + ' ' + outfile
+    print os.popen(runcmd).read()
+if __name__ == '__main__':
+    infile = sys.argv[1]
+    outfile = sys.argv[2]
+    img_to_jpg(infile, outfile)

@@ -1,0 +1,19 @@
+#!/bin/bash
+hostip=192.168.0.123
+hostpath=/diskless/$hostip
+fstab=$hostpath/etc/fstab
+
+# these entries are essential
+echo "$hostip:$hostpath / nfs sync,hard,intr,rw,nolock,rsize=8192,wsize=8192 0 0" > $fstab
+echo "$hostip:/opt /opt nfs sync,hard,intr,ro,nolock,rsize=8192,wsize=8192 0 0" >> $fstab
+echo "$hostip:/usr /usr nfs sync,hard,intr,ro,nolock,rsize=8192,wsize=8192 0 0" >> $fstab
+echo "$hostip:/home /home nfs sync,hard,intr,rw,nolock,rsize=8192,wsize=8192 0 0" >> $fstab
+echo "none /proc proc defaults 0 0" >> $fstab
+# useful but superfluous
+echo "$hostip:/var/log /var/log nfs hard,intr,rw 0 0" >> $fstab
+rsync -avz /bin  $hostpath 
+rsync -avz /sbin $hostpath 
+rsync -avz /lib  $hostpath 
+rsync -avz /lib32  $hostpath 
+rsync -avz /lib64  $hostpath 
+echo "config_eth0=( \"noop\" )" > $hostpath/etc/conf.d/net

@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+import os
+import sys
+import glob
+import Image
+import shutil
+bmps = glob.glob('*.jpg')
+for bmp in bmps:
+    outbmp = 'z' + bmp
+    print outbmp
+    imgdata = Image.open(bmp)
+    imgdata = imgdata.rotate(90)
+    # box: left, upper, right, lower
+    imgdata.save(outbmp)
+    del(imgdata)
+    os.remove(bmp)
+

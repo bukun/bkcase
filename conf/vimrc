@@ -1,0 +1,265 @@
+call pathogen#runtime_append_all_bundles()
+runtime macros/matchit.vim 
+" 不使用vi的键盘模式，而是vim自己的
+" 解决不能用backspace删除的问题
+set nocp " set cp " 该命令指定让 VIM 工作在不兼容模式下。
+autocmd BufRead *.map set filetype=map
+set fileformat=unix
+set fileencoding=utf-8
+"  " 使回格键（backspace）正常处理indent, eol, start等
+set backspace=2
+"  " history文件中需要记录的行数
+set history=20
+"  " 通过使用: commands命令，告诉我们文件的哪一行被改变过
+set report=0
+"  " 不让vim发出讨厌的滴滴声
+set noerrorbells
+" set tw=79
+set ts=4 sw=4 sta et sts=4 ai
+"" ========GUI环境设置========================================== 
+"" 颜色主题
+""
+" colorscheme murphy
+colorscheme desert
+
+
+let g:NERDTreeChDirMode=2
+
+" NERDTreeChDirMode设置为2是让VIM的当前路径和NERDTree的当前根路径一致。
+" 而NERDTree的当前根目录，
+" 可以通过在NERDTree窗口里选中目录然后Shift+C，
+" 也就是大写的C啦来设定。
+
+"不要工具条
+
+" Buffer的位置和大小
+" 可能是此句导致不能对齐
+" winpos 300 100
+" set lines=28
+" set columns=90
+
+"        " 因为设定为不换行，所以要显示底部滚动条，不显示左右滚动条和工具栏
+"        set guioptions+=b
+"        set guioptions-=r
+"        set guioptions-=l
+"        set guioptions-=T
+highlight Over80 ctermbg=red ctermfg=white guifg=fg guibg=Blue
+match Over80 /\%81v.*/
+" 工具条
+set guioptions-=T
+"        
+" 用浅色高亮当前行
+autocmd InsertLeave * se nocul
+autocmd InsertEnter * se cul
+"        
+" 设置用于GUI图形用户界面的字体列表。
+" set guifont=Pragmata\ 11.5
+set guifont=YaHei_Monaco\ 11
+" set guifont=Arial\ monospaced\ for\ SAP\ 9
+" set guifontset=Microsoft\ YaHei\ 10
+set guifontwide=YaHei_Monaco\ 11.5
+" set guifontwide=YouYuan\ 10.5
+" set guifontwide=YouYuan\ 10
+
+" set guifontset=Simsun\ 11
+
+" 与windows共享剪贴板
+" set clipboard+=unnamed
+
+" =======设置文件编码`=========================================== 
+" 设置编码
+" set enc=utf-8
+" 设置当前字符编码为简体中文。 
+" set encoding=cp936
+" 设定默认解码
+set fenc=utf-8
+" 设置文件编码检测类型及支持格式
+set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+" 指定菜单语言
+" set langmenu=zh_CN.UTF-8
+" source $VIMRUNTIME/delmenu.vim
+" source $VIMRUNTIME/menu.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " 不要备份文件（根据自己需要取舍）
+" " set nobackup
+"            
+" 真的很smart, 搜索时全小写相当于不区分大小写，
+" 只要有一个大写字母出现，则区分大小写
+" simple idea, great achievement!
+set ignorecase smartcase
+"  "启动gVIM时最大化
+"  au GUIEnter * simalt ~x
+"            
+filetype on " 侦测文件类型
+filetype indent on " 为特定文件类型载入相关缩进文件
+filetype plugin on " 载入文件类型插件
+filetype plugin indent on
+"pydiction 1.2 python auto complete
+let g:pydiction_location = '~/.vim/after/ftplugin/complete-dict'
+"defalut g:pydiction_menu_height == 15
+"let g:pydiction_menu_height = 20 
+
+
+" 设置语法高亮度
+syntax enable
+syntax on
+"      
+"缩进线设置，这里你可以把“|”改为你喜欢的缩进线符号，
+" 推荐使用“:”或者“.”。这里要注意的是，缩进线只有对Tab缩进有效，而空格缩进无效
+" set list
+" set listchars=tab:\|\
+
+" 搜索时在未完全输入完毕要检索的文本时就开始检索。
+set is
+            
+"显示行号
+set nu!
+            
+" 命令打开 VIM 的状态栏标尺。 
+" 默认情况下， VIM 的状态栏标尺在屏幕底部，
+" 它能即时显示当前光标所在位置在文件中的行号、列号， 
+" 以及对应的整个文件的百分比。打开标尺可以给文件的编辑工作带来一定方便。
+set ru
+            
+" 查找结果高亮度显示 , Equal to 'set hls'
+set hlsearch
+            
+" 命令行高度
+set cmdheight=1
+         
+" =======源代码样式设置=========================================== 
+" 设置自动缩进
+set ai
+         
+" tab宽度Tab 宽度为 4 个字符。
+set tabstop=4
+
+" 输入tab时自动将其转化为空格
+set expandtab
+
+" 将已存在的tab都转化为空格
+retab
+" set cindent shiftwidth=4   
+
+" 自动缩进的时候， 缩进尺寸为 4 个空格。
+set autoindent shiftwidth=4
+         
+" =====CTags设置============================================= 
+"安装Tlist后设置ctags路径 
+let Tlist_Ctags_Cmd="ctags"
+" nnoremap   :TlistToggle
+let Tlist_Use_SingleClick=1
+" 设置Tlist的方法列表在右边  " 在右侧显示窗口
+let Tlist_Use_Right_Window=1
+" 让当前不被编辑的文件的方法自动折叠起来 " 不要关闭其他文件的tags，设置为0
+let Tlist_File_Fold_Auto_Close=1
+" 默认打开taglist，_vimrc中加入
+let Tlist_Auto_Open=1
+" 按照名称排序
+" let Tlist_Sort_Type = "name"  ;使用Latex时会造成困扰。
+" 压缩方式
+let Tlist_Compart_Format = 1
+" 如果只有一个buffer，kill窗口也kill掉buffer
+let Tlist_Exist_OnlyWindow = 1
+" 不要显示折叠树
+let Tlist_Enable_Fold_Column = 0
+         
+" ========设置Python环境==========================================
+" 设置Python环境
+" 设置F9用来执行Python命令。
+
+map <F9> :!python %
+"         
+"         """"""""""""""""""""""""""""""
+"         " Calendar设置
+"         """"""""""""""""""""""""""""""
+" nmap <F5> :
+"         
+"         """"""""""""""""""""""""""""""
+"         " netrw setting
+"         """"""""""""""""""""""""""""""
+"         let g:netrw_winsize = 30
+"         nmap fe :Sexplore!
+"         
+"         " latex-suite
+"         """""""""""""""""""""""""""""""""""""""""
+"         " 搜索和匹配
+"         """""""""""""""""""""""""""""""""""""""""
+"         " 高亮显示匹配的括号
+"         set showmatch
+"         " 匹配括号高亮的时间（单位是十分之一秒）
+"         set matchtime=5
+"         " 在搜索的时候忽略大小写
+"         " set ignorecase
+"         " 不要高亮被搜索的句子（phrases）
+"         set nohlsearch
+"         
+"         " 在搜索时，输入的词句的逐字符高亮（类似firefox的搜索）
+"         set incsearch
+"         
+"         " 光标移动到buffer的顶部和底部时保持3行距离
+"         set scrolloff=3
+"         
+"         " 不要闪烁
+"         set novisualbell
+"         
+" 我的状态行显示的内容（包括文件类型和解码）
+" set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+"         
+" 总是显示状态行
+set laststatus=2
+"         
+"         """""""""""""""""""""""""""""""""
+"         " 文本格式和排版
+"         """""""""""""""""""""""""""""""""
+" 自动格式化
+set formatoptions=tcrqn
+
+" 继承前一行的缩进方式，特别适用于多行注释
+set autoindent
+
+" 用空格键来开关折叠
+set foldenable
+set foldmethod=manual
+
+" vim 自动补全 Python 代码
+" 来自http://vim.sourceforge.net/scripts/script.php?script_id=850
+" autocmd FileType python set complete+=k~/.vim/pydiction-1.2
+"
+"""""""""""""""""""""""""
+" latexsuite
+set shellslash
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+set iskeyword+=:
+
+" vimwiki
+" 在键盘映射中常用的表示
+" <CR>             : 回车
+" <ESC>            : Esc
+" <LEADER>         : 转义符号 \
+" <BAR>            : 管道符号 |
+"  更改文件的编码与格式
+map <F4> <ESC>:set fileformat=unix<CR>:set fileencoding=utf-8<CR>
+
+" VIM括号自动补全
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {}<ESC>i
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap < <><ESC>i
+:inoremap > <c-r>=ClosePair('>')<CR>
+
+function ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endf
+set fileencoding=utf-8
+
+" source  /usr/lib64/python2.7/site-packages/ropevim-0.3_rc-py2.7.egg/ropevim.vim
+" let ropevim_vim_completion=1

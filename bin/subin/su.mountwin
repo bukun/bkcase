@@ -1,0 +1,12 @@
+mkdir /home/bk/share
+chmod 774 /home/bk/vshare
+# Debian下面运行成功
+# mount.cifs //192.168.4.110/share /home/bk/share -o "username=bk,passwd=pass,uid=1000,gid=1000,codepage=cp936,iocharset=utf8"
+
+mount.cifs //192.168.4.122/vshare /home/bk/vshare -o "username=bk,passwd=1qasw23ed,uid=1000,gid=1000,codepage=cp936,iocharset=utf8"
+
+# sudo mount -t cifs //192.168.4.111/v /home/bk/share -o "username=bukunu,passwd=pass,uid=1000,gid=1000,codepage=cp936,iocharset=utf8"
+# Gentoo uid=1000
+# mount -t cifs //192.168.4.188/v /home/bk/v -o "username=bk,passwd=pass,uid=1000,isocharset=cp936"
+
+# 

@@ -1,0 +1,17 @@
+
+./install-tl -location http://ftp.ctex.org/mirrors/CTAN/systems/texlive/tlnet/ -gui text
+
+
+.bashrc,
+
+
+
+PATH=/usr/local/texlive/2009/bin/x86_64-linux:$PATH; export PATH
+
+/usr/local/texlive/2009/bin/x86_64-linux
+
+
+sudo /usr/local/texlive/2009/bin/x86_64-linux/tlmgr --location http://ftp.ctex.org/mirrors/texlive/tlnet/ update --self
+sudo /usr/local/texlive/2009/bin/x86_64-linux/tlmgr --location http://ftp.ctex.org/mirrors/texlive/tlnet/ update --all
+#  tlmgr --location http://ftp.ctex.org/mirrors/texlive/tlnet/ update --list
+#

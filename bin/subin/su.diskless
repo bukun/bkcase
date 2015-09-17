@@ -1,0 +1,24 @@
+#!/bin/bash
+hostip=192.168.1.21
+hostpath=/diskless/$hostip
+mkdir $hostpath
+cp -r /etc $hostpath/etc
+mkdir $hostpath/home
+mkdir $hostpath/dev
+mkdir $hostpath/proc
+mkdir $hostpath/tmp
+mkdir $hostpath/mnt
+chmod a+w $hostpath/tmp
+mkdir $hostpath/mnt/.initd
+mkdir $hostpath/root
+mkdir $hostpath/sys
+mkdir $hostpath/var
+mkdir $hostpath/var/empty
+mkdir $hostpath/var/lock
+mkdir $hostpath/var/log
+mkdir $hostpath/var/run
+mkdir $hostpath/var/spool
+mkdir $hostpath/usr
+mkdir $hostpath/opt
+mknod $hostpath/dev/console c 5 1
+

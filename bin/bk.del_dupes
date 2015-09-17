@@ -1,0 +1,25 @@
+#!/usr/bin/python
+import sys
+def gen_del_file(infile, outfile):
+    fo = open(outfile, 'w')
+    fo.write('#!/bin/bash\n')
+    sig = 0
+    cnts = file(infile).readlines()
+    for cnt in cnts:
+        cnt = cnt.strip()
+        if len(cnt) == 0:
+            sig = 0
+            strout = '\n'
+            pass
+        else:
+            if sig == 0:
+                strout = '# "%s"\n' % (cnt)
+                sig = sig + 1
+            else:
+                strout = 'rm "%s"\n' % (cnt)
+        fo.write(strout)
+    fo.close()
+if __name__ == '__main__':
+    infile = sys.argv[1]
+    outfile = infile + '.rm_file'
+    gen_del_file(infile, outfile)

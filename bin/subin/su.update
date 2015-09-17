@@ -1,0 +1,8 @@
+# /usr/local/texlive/2010/bin/x86_64-linux/tlmgr --location ftp://ftp.ctex.org/mirrors/CTAN/systems/texlive/tlnet/ update --self
+# /usr/local/texlive/2010/bin/x86_64-linux/tlmgr --location ftp://ftp.ctex.org/mirrors/CTAN/systems/texlive/tlnet/ update --all
+emerge --sync
+emerge -avtuDN world
+emerge --depclean
+revdep-rebuild
+# python-updater
+

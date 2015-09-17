@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+import os
+import sys
+
+
+def run(infile, outfile):
+    tempfile = outfile
+    cmd = 'java -jar /home/bk/bin/writer2latex.jar \
+        -clean '
+    print infile
+    print tempfile
+    cmd = cmd + '"' + infile + '" ' + tempfile
+    print cmd
+    sdir = os.popen(cmd).read()
+    print sdir
+    tmpfile = outfile + 'tmp'
+    cmd2 = 'cat ' + outfile + r" | perl -p000e 's/([][0-9A-F?])\n([][0-9A-F?])/$1$2/g; s/\[([0-9a-f]{1,4})\?\]/chr(hex($1))/giex;' 2>/dev/null >" + tmpfile
+    sdir = os.popen(cmd2).read()
+    print sdir
+    os.remove(outfile)
+    os.rename(tmpfile, outfile)
+
+if __name__ == '__main__':
+    infile = sys.argv[1]
+    outfile = sys.argv[2]
+    run(infile, outfile)

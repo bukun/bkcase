@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+import os, sys, stat
+
+indir = sys.argv[1]
+
+inws = os.path.abspath(indir)
+print(inws)
+for wroot, wdirs, wfiles in os.walk(inws):
+    for wfile in wfiles:
+        in_file = os.path.join(wroot, wfile)
+        if os.path.islink(in_file):
+            continue
+        else:
+            pass
+        os.chmod(in_file, stat.S_IRUSR | stat.S_IWUSR)
+    os.chmod(wroot, stat.S_IRWXU)

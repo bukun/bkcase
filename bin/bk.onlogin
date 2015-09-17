@@ -1,0 +1,5 @@
+mlnet &
+cd
+java -jar wuala/loader3.jar &
+
+

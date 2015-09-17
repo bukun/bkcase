@@ -1,0 +1,21 @@
+# unison-2.27 -ui text  /idlrt ssh://bk@$IP//idlrt
+IP=159.226.123.20
+unison  -ui text /home/bk/bkcase  ssh://bk@$IP//home/bk/bkcase
+
+# unison -batch -ui text /home/bk/progs ssh://bk@$IP//home/bk/progs
+# unison -batch -ui text /home/bk/.sysconf/xpfonts ssh://bk@$IP//home/bk/.sysconf/xpfonts
+# unison -batch -ui text /home/bk/.sysconf/usr ssh://bk@$IP//home/bk/.sysconf/usr
+# unison -batch -ui text /home/bk/.xinitrc ssh://bk@$IP//home/bk/.xinitrc
+
+# scp -r  /home/bk/.bashrc            $IP:/home/bk/.bashrc
+# scp -r  /home/bk/.profile           $IP:/home/bk/.profile
+# scp -r  /home/bk/.vim               $IP:/home/bk/.vim
+# scp -r  /home/bk/.vimrc             $IP:/home/bk/.vimrc
+# scp -r  /home/bk/.zshrc             $IP:/home/bk/.zshrc
+# scp -r  /home/bk/.xinitrc           $IP:/home/bk/.xinitrc
+# scp -r  /home/bk/bin/*              $IP:/home/bk/bin/
+# scp -r  /home/bk/progs/*            $IP:/home/bk/progs/
+# scp -r  /home/bk/.sysconf/xpfonts/* $IP:/home/bk/.sysconf/xpfonts/
+# scp -r  /home/bk/.sysconf/usr/*     $IP:/home/bk/.sysconf/usr/
+
+

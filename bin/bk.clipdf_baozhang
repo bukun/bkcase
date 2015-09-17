@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+import os
+import sys
+
+def runit(infile, outfile):
+    clip_cmd = 'pdfcrop --margins "-10 -34 0 -213" --clip ' + infile \
+        + ' ' + outfile
+    run_res = os.popen(clip_cmd)
+    print run_res
+
+if __name__ == '__main__':
+    if sys.argv[1] == 'pdf':
+        print 'uu'
+        import  glob
+        pdfs = glob.glob('*.pdf')
+        for pdf in pdfs:
+            (name,ext) = os.path.splitext(pdf)
+            if name[-4:] == 'clip':
+                pass
+            else:
+                infile = name + '.pdf'
+                outfile = name + '_clip.pdf'
+                runit(infile, outfile)
+    elif len(sys.argv) < 3:
+        print "Usage: "
+        print "    bk.clipdf_baozhang infile outfile"
+    else:
+        infile = sys.argv[1]
+        outfile = sys.argv[2]
+        runit(infile, outfile)

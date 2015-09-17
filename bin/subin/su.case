@@ -1,0 +1,4 @@
+ln -s /home/bk/bkcase/bin /root/bin
+ln -s /home/bk/bkcase/conf/.vim /root/.vim
+ln -s /home/bk/bkcase/conf/.vimrc /root/.vimrc
+

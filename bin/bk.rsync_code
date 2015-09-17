@@ -1,0 +1,7 @@
+while true
+do
+    echo =======================================================
+    rsync -r /home/bk/progs/ws_py/Project/Lu802k ~/v/Lu802k/
+    sleep 4 
+done
+
