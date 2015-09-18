@@ -1,12 +1,8 @@
 rm -f $HOME/bin
-rm -f $HOME/progs
 rm -f $HOME/.vim
 rm -f $HOME/.vimrc
-rm -f $HOME/.zshrc
 
 ln -s $HOME/bkcase/bin $HOME/bin
-ln -s $HOME/bkcase/progs $HOME/progs
 ln -s $HOME/bkcase/conf/vim $HOME/.vim
 ln -s $HOME/bkcase/conf/vimrc $HOME/.vimrc
-ln -s $HOME/bkcase/conf/zshrc $HOME/.zshrc
 
