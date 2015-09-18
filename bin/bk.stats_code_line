@@ -7,6 +7,7 @@ fo = open('xx_code_stats.txt', 'w')
 # pwd = os.path.join(os.getcwd(), 'cmi')
 
 cnt_num = 0
+proj_ws = os.getcwd()
 for wroot, wdirs, wfiles in os.walk(proj_ws):
     for wfile in wfiles:
         
