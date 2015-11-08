@@ -3,6 +3,9 @@
 import os
 import sys
 
+ignore_arr = ['jquery', 'superslide', 'bootstrap', 'purecss', 'colorbox', 'codemirror','leaflet', 
+    'validate', 'pure-min', 'syntexhighlighter', 'bootstrap', 'config']
+
 fo = open('xx_code_stats.txt', 'w')
 # pwd = os.path.join(os.getcwd(), 'cmi')
 
@@ -10,17 +13,25 @@ cnt_num = 0
 proj_ws = os.getcwd()
 for wroot, wdirs, wfiles in os.walk(proj_ws):
     for wfile in wfiles:
-        
-        if wfile.endswith('.py') or wfile.endswith('.html'):
-            fo.write('\n'  + wfile + '\n')
+        if wfile.endswith('.py') or wfile.endswith('.html') or wfile.endswith('.js') or wfile.endswith('.css'):
             infile = os.path.join(wroot, wfile)
+            sig = False
+            for ignore_str in ignore_arr:
+                if  ignore_str in infile.lower():
+                    sig = True
+                    continue
+            if sig:
+                continue
+
+
+            fo.write('\n'  + infile[len(proj_ws) + 1:] + '\n')
             cnts = file(infile).readlines()
             for cnt in cnts:
                 cnt = cnt.rstrip()
+                if wfile.endswith('.html')  or wfile.endswith('.js') or wfile.endswith('.css'):
+                    cnt = cnt.strip()
                 if len(cnt) > 0:
-                    
                     fo.write("{0}: {1}\n".format(str(cnt_num).zfill(5), cnt))
                     cnt_num += 1
-            # cnt_num  = cnt_num + len(cnts)
 fo.close()
 print(cnt_num)

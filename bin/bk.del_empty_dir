@@ -3,7 +3,11 @@ import os, sys
 
 def runit(inws):
     for wroot, wdirs, wfiles in os.walk(inws):
+        for wfile in wfiles:
+            if wfile == '.DS_Store':
+                os.remove( os.path.join ( wroot, wfile))
         if wdirs==[] and wfiles ==[]:
+            print(wroot)
             os.rmdir(wroot)
 
 if __name__ == '__main__':
