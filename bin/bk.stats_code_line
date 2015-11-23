@@ -10,8 +10,7 @@ cnt_num = 0
 proj_ws = os.getcwd()
 for wroot, wdirs, wfiles in os.walk(proj_ws):
     for wfile in wfiles:
-        
-        if wfile.endswith('.py') or wfile.endswith('.html'):
+        if wfile.endswith('.py') :
             fo.write('\n'  + wfile + '\n')
             infile = os.path.join(wroot, wfile)
             cnts = file(infile).readlines()
@@ -21,6 +20,19 @@ for wroot, wdirs, wfiles in os.walk(proj_ws):
                     
                     fo.write("{0}: {1}\n".format(str(cnt_num).zfill(5), cnt))
                     cnt_num += 1
-            # cnt_num  = cnt_num + len(cnts)
+for wroot, wdirs, wfiles in os.walk(proj_ws):
+    for wfile in wfiles:
+        if wfile.endswith('.html'):
+            fo.write('\n'  + wfile + '\n')
+            infile = os.path.join(wroot, wfile)
+            cnts = file(infile).readlines()
+            for cnt in cnts:
+                cnt = cnt.rstrip()
+                if len(cnt) > 0:
+                    
+                    fo.write("{0}: {1}\n".format(str(cnt_num).zfill(5), cnt))
+                    cnt_num += 1
+
+
 fo.close()
 print(cnt_num)
