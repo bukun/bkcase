@@ -1,0 +1,90 @@
+# Map file created from QGIS project file /home/bk/w/data/n/landuse2010.qgs
+# Edit this file to customize for your map interface
+# (Created with PyQgis MapServer Export plugin)
+
+MAP
+
+OUTPUTFORMAT
+NAME "png"
+DRIVER AGG/PNG
+MIMETYPE "image/png"
+IMAGEMODE RGBA
+EXTENSION "png"
+FORMATOPTION "GAMMA=0.75"
+TRANSPARENT ON
+END
+
+NAME "China2011"
+# Map image size
+STATUS ON
+SIZE 300 300
+UNITS meters
+
+# UNITS dd
+
+EXTENT 7458000 447000 15846608 8835608
+# EXTENT -3200000 -1560000 3480000 3258000 
+# EXTENT 122 30 137 45 
+SHAPEPATH  "./00_China_png"
+FONTSET './fonts/fonts.list'
+SYMBOLSET './symbols/symbols.sym'
+
+
+PROJECTION
+"init=epsg:3857"
+END
+
+# Background color for the map canvas -- change as desired
+IMAGECOLOR 255 255 255
+IMAGEQUALITY 95
+IMAGETYPE png
+
+# Legend
+LEGEND
+IMAGECOLOR 255 255 255
+STATUS ON
+KEYSIZE 18 12
+LABEL
+TYPE BITMAP
+SIZE MEDIUM
+COLOR 0 0 89
+PARTIALS false
+FORCE false
+
+END
+END
+
+# Web interface definition. Only the template parameter
+# is required to display a map. See MapServer documentation
+WEB
+# Set IMAGEPATH to the path where MapServer should
+# write its output.
+IMAGEPATH '/tmp/'
+
+# MAXSCALEDENOM 200000
+
+# Set IMAGEURL to the url that points to IMAGEPATH
+# as defined in your web server configuration
+IMAGEURL '/ms_tmp/'
+
+# WMS server settings
+METADATA
+'wms_title'           'QGIS-MAP'
+'wms_onlineresource'  'http://192.168.4.188/cgi-bin/mapserv?map=/opt/mapws/mapfile/china.map'
+'wms_srs'             'EPSG:7564'
+"wms_feature_info_mime_type" "text/html"
+'ows_srs'             'EPSG:7564'
+"wms_format" "image/png"
+ows_enable_request "*" 
+'wms_enable_request'  '*'
+END
+
+#Scale range at which web interface will operate
+# Template and header/footer settings
+# Only the template parameter is required to display a map. See MapServer documentation
+TEMPLATE 'fooOnlyForWMSGetFeatureInfo'
+END
+
+#Scale range at which web interface will operate
+# Template and header/footer settings
+# Only the template parameter is required to display a map. See MapServer documentation

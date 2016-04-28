@@ -1,0 +1,250 @@
+# -------------------------------
+# MapProxy example configuration.
+# -------------------------------
+#
+# This is a minimal MapProxy configuration.
+# See full_example.yaml and the documentation for more options.
+#
+
+# Starts the following services:
+# Demo:
+#     http://192.168.4.166:8080/demo
+# WMS:
+#     capabilities: http://192.168.4.166:8080/service?REQUEST=GetCapabilities
+# WMTS:
+#     capabilities: http://192.168.4.166:8080/wmts/1.0.0/WMTSCapabilities.xml
+#     first tile: http://192.168.4.166:8080/wmts/osm/webmercator/0/0/0.png
+# Tile service (compatible with OSM/etc.)
+#     first tile: http://192.168.4.166:8080/tiles/osm/webmercator/0/0/0.png
+# TMS:
+#     note: TMS is not compatible with OSM/Google Maps/etc.
+#     fist tile: http://192.168.4.166:8080/tms/1.0.0/osm/webmercator/0/0/0.png
+# KML:
+#     initial doc: http://192.168.4.166:8080/kml/osm/webmercator
+
+services:
+  demo:
+  tms:
+    use_grid_names: false
+    # origin for /tiles service
+    origin: 'nw'
+  kml:
+      use_grid_names: true
+  wmts:
+  wms:
+    md:
+      title: MapProxy WMS Proxy
+      abstract: This is a minimal MapProxy example.
+
+layers:
+  - name: osm
+    title: Omniscale OSM WMS - osm.omniscale.net
+    sources: [osm_cache]
+  - name: ditu
+    title: ditu
+    sources: [ditu]
+  - name: sheng_bnd
+    title: sheng_bnd
+    sources: [sheng_bnd]
+  - name: sheng_line
+    title: sheng_line
+    sources: [sheng_line]
+
+  - name: jilin_bnd_region
+    title: jilin_bnd_region
+    sources: [jilin_bnd_region]
+
+  - name: dehui_cr
+    title: dehui_cr
+    sources: [dehui_cr]
+  - name: geogrid
+    title: geogrid
+    sources: [geogrid]
+
+  - name: china
+    title: china
+    sources: [china]
+  - name: wetland2000
+    title: wetland2000
+    sources: [wetland2000]
+  - name: wetland_background_region
+    title: wetland_background_region
+    sources: [wetland_background_region]
+  - name: v000
+    title: v000
+    sources: [v000]
+
+caches:
+  osm_cache:
+    grids: [webmercator]
+    sources: [china]
+  ditu:
+    grids: [webmercator]
+    sources: [ditu]
+  sheng_bnd:
+    grids: [webmercator]
+    sources: [sheng_bnd]
+  sheng_line:
+    grids: [webmercator]
+    sources: [sheng_line]
+
+  jilin_bnd_region:
+    grids: [webmercator]
+    sources: [jilin_bnd_region]
+  dehui_cr:
+    grids: [webmercator]
+    sources: [dehui_cr,toushuiceng, mask_changchun]
+  geogrid:
+    grids: [webmercator]
+    meta_buffer: 150
+    # sources: [geogrid1w,geogrid10w_label,geogrid2d5w,geogrid2d5w_label,geogrid5w,geogrid5w_label,geogrid10w,geogrid10w_label,geogrid25w,geogrid25w_label,geogrid50w,geogrid50w_label,geogrid100w,geogrid100w_label]
+    sources: [geogrid ]
+  china:
+    grids: [webmercator]
+    meta_buffer: 150
+    sources: [china]
+  wetland2000:
+    grids: [webmercator]
+    sources: [wetland2000]
+  wetland_background_region:
+    grids: [webmercator]
+    sources: [wetland_background_region]
+  v000:
+    grids: [webmercator]
+    sources: [v000]
+
+sources:
+  geogrid:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+
+    req:
+      # use of this source is only permitted for testing
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/geogrid.map
+      layers: grid1w_label,grid1w,grid2d5w_label,grid2d5w,grid5w_label,grid5w,grid10w_label,grid10w,grid25w_label,grid25w,grid50w_label,grid50w,grid100w_label,grid100w
+
+
+
+  osm_wms:
+    type: wms
+    req:
+      # use of this source is only permitted for testing
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/china2011.map
+      layers: bnd_sheng,road_sheng,road_xian,road_shi
+  sheng_bnd:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+
+    req:
+      # use of this source is only permitted for testing
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/china.map
+      layers: bnd_sheng
+
+  sheng_line:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+    req:
+      # use of this source is only permitted for testing
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/china.map
+      layers: sheng_line
+
+
+  ditu:
+    type: wms
+    image:
+        transparent_color: '#ffffff'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/sheng.map
+      layers: sheng,river
+
+  jilin_bnd_region:
+    type: wms
+    image:
+        transparent_color: '#ffffff'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/shihang.map
+      layers: jilin_bnd_region
+
+  dehui_cr:
+    type: wms
+    image:
+        transparent_color: '#ffffff'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/shihang.map
+      layers: dehui_cr
+
+  toushuiceng:
+    type: wms
+    image:
+        transparent_color: '#ffffff'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/shihang.map
+      layers: toushuiceng
+
+  mask_changchun:
+    type: wms
+    image:
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/shihang.map
+      layers: mask_changchun
+
+  china:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/china.map
+      layers: bnd_sheng,road_sheng,jzw,road_shi,grap,railway,road_highway,road_xian,road_huan,road_high_yin,road_shiza,road_fudao
+
+  china_bnd_1949_1951:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/mapfile/china_bnd.map
+      layers: china_bnd_1949_1951
+  wetland2000:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/wetland/wetland.map
+      layers: wetland2000
+
+  wetland_background_region:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/wetland/region.map
+      layers: regionc1
+
+  v000:
+    type: wms
+    image:
+        transparent_color: '#000000'
+        transparent_color_tolerance: 0
+    req:
+      url: http://192.168.4.166/cgi-bin/mapserv?map=/opt/mapws/maplet/vect/landuse/lu2000s.map
+      layers: v000
+
+grids:
+    webmercator:
+        base: GLOBAL_WEBMERCATOR
+
+globals:
