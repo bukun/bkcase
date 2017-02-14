@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import os
 import sys
@@ -131,7 +131,7 @@ def zuzhi_dir(inws,sig_main, w_len):
  
     zucheng_files.sort()
     
-    cnts = file(main_tex_file).readlines()
+    cnts = open(main_tex_file).readlines()
     
     fo = open(main_tex_file, 'w')
     for cnt in cnts:
@@ -141,7 +141,7 @@ def zuzhi_dir(inws,sig_main, w_len):
     fo.write('%s\n' % magic_str)
     for zucheng_file in zucheng_files:
         # 取第一行，写入
-        tep = file(zucheng_file).next()
+        tep = open(zucheng_file).next()
         fo.write('%% %s' % (tep))
         # 写入组成文件
         zucheng_file = '.' + zucheng_file[w_len:-4]

@@ -32,16 +32,13 @@ for wroot, wdirs, wfiles in os.walk(inws):
             re = os.popen(testcmd).readlines()
             re2 = [x.replace('\n', '') for x in re]
             if len(re2) < 9:
-                print '    Wrong file:' + test_file_path
+                print ('    Wrong file:' + test_file_path)
             else:
                 if re2[8].lower() == 'Everything is Ok'.lower():
-                    print "    Right:" + wfile
                     if os.path.exists(outfile):
-                        print '        File exists.'
-                        
+                        pass
                     else:
                         shutil.move(test_file_path, outws)
-                        print '        QED'
                 else:
-                    print "    Error:" + test_file_path
+                    print ("    Error:" + test_file_path)
 

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #-*-encoding:utf-8-*-
 """
     Compare the files between two folders.
@@ -26,7 +26,6 @@ def del_double_files(folder1, folder2):
     """
     foler1_name_length = len(folder1) # The name length of folder1. 
     for root, dirs, files in os.walk(folder1):
-        print dirs
         for filename in files:
             file1 = os.path.join(root, filename)
             file2 = folder2 + file1[foler1_name_length:]
@@ -44,14 +43,10 @@ def del_double_file(file1, file2):
     md5a = get_md5_value(file1)
     md5b = get_md5_value(file2)
     if md5a == md5b:
-        print "delete: "
-        print " " * 10 + file1
         # print " " * 10 + file2
         os.remove(file1)
     else:
-        print "Error: "
-        print " " * 4 + file1 + " " * 3 + file2
-
+        pass
 def is_empry_directory(dirpath):
     # os.chdir(dirpath)
     # tepFiles  = glob.glob('*')
@@ -68,7 +63,7 @@ def del_empty_folder(dir):
         fullpath = dir + os.sep + listname
         if os.path.isdir(fullpath):
             if is_empry_directory(fullpath) == 1 :
-                print fullpath
+                print (fullpath)
                 try:
                     os.rmdir(fullpath)
                 except:
