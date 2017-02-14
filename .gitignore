@@ -56,3 +56,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+cfg.py
+config.py
+
+.DS_Store
