@@ -26,7 +26,4 @@ def update_proj(projdic):
     with cd(projdic['projws']):
         with settings(prompts=coding_prompts):
             run('git pull')
-        run('{python} helper.py -i init_tables'.format(python=projdic['python']))
-        run('{python} helper.py -i gen_category'.format(python=projdic['python']))
-        run('{python} helper.py -i crud0'.format(python=projdic['python']))
-        run('{python} helper.py -i crud1'.format(python=projdic['python']))
+        run('{python} helper.py -i init'.format(python=projdic['python']))
