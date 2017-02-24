@@ -21,6 +21,8 @@ def backup_db(db, passwd):
 
 
 def update_proj(projdic):
+    print('=' * 40)
+    print(' ' * 4 + projdic['projws'] )
     with cd(os.path.join(projdic['projws'], 'templates/modules')):
         run('git pull')
     with cd(projdic['projws']):
