@@ -12,3 +12,4 @@ def restart():
     run('supervisorctl restart drr')
     run('supervisorctl restart yunsuan1')
     run('supervisorctl restart yunsuan2')
+    run('supervisorctl restart gislab')
