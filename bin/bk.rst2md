@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+#-*-encoding:utf-8-*-
+
+import os
+import sys
+import  subprocess
+for uu in os.listdir(os.getcwd()):
+    qian,hou = os.path.splitext(uu)
+    if hou == '.rst':
+        cmd = 'pandoc --from rst --to markdown_strict {0}.rst -o {0}.md'.format(qian)
+        subprocess.call(cmd, shell=True)
+        print(cmd)
