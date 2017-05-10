@@ -16,8 +16,8 @@ def backup_db(db, passwd):
         with settings(prompts={"Password: ": passwd,}):
             run('pg_dump -h localhost -U {db}  -F c {db}  > {fname}.bak'.format(fname=fname, db=db))
         run("tar -czf {fname}.tar.gz {fname}.bak".format(fname=fname))
-        # get('/home/bk/tmp/{fname}.tar.gz'.format(fname = fname), '/opt/tmp/{fname}.tar.gz'.format(fname = fname))
-        get('/home/bk/tmp/{fname}.tar.gz'.format(fname=fname), '//Users/bukun/bak/{fname}.tar.gz'.format(fname=fname))
+        get('/home/bk/tmp/{fname}.tar.gz'.format(fname = fname), '/home/bk/tmp/{fname}.tar.gz'.format(fname = fname))
+        # get('/home/bk/tmp/{fname}.tar.gz'.format(fname=fname), '//Users/bukun/bak/{fname}.tar.gz'.format(fname=fname))
 
 
 def update_proj(projdic):
