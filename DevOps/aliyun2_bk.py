@@ -25,8 +25,7 @@ def git_clone():
 
 
 def update():
-    with cd('~/deploy/TorCMS'):
-        run('git pull')
+
 
     for key, projdic in aliyun2_proj_cfg.items():
         update_proj(projdic)

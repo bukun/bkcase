@@ -13,16 +13,16 @@ def backup_db(db, passwd):
     sig = now.strftime('%Y%m%d')
     fname = 'pg_{db}_{sig}'.format(db=db, sig=sig)
     with cd('~/tmp'):  # cd用于进入某个目录
-        with settings(prompts={"Password: ": passwd,}):
+        with settings(prompts={"Password: ": passwd, }):
             run('pg_dump -h localhost -U {db}  -F c {db}  > {fname}.bak'.format(fname=fname, db=db))
         run("tar -czf {fname}.tar.gz {fname}.bak".format(fname=fname))
-        get('/home/bk/tmp/{fname}.tar.gz'.format(fname = fname), '/home/bk/tmp/{fname}.tar.gz'.format(fname = fname))
+        get('/home/bk/tmp/{fname}.tar.gz'.format(fname=fname), '/home/bk/tmp/{fname}.tar.gz'.format(fname=fname))
         # get('/home/bk/tmp/{fname}.tar.gz'.format(fname=fname), '//Users/bukun/bak/{fname}.tar.gz'.format(fname=fname))
 
 
 def update_proj(projdic):
     print('=' * 40)
-    print(' ' * 4 + projdic['projws'] )
+    print(' ' * 4 + projdic['projws'])
     with cd(os.path.join(projdic['projws'], 'templates/modules')):
         run('git pull')
     with cd(projdic['projws']):

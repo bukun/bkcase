@@ -18,8 +18,6 @@ def backup():
 
 
 def update():
-    with cd('~/deploy/TorCMS'):
-        run('git pull')
 
     for key, projdic in aliyun1_proj_cfg.items():
         update_proj(projdic)
