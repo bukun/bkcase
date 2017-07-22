@@ -3,4 +3,4 @@
 fab -f aliyun1_bk.py update
 fab -f aliyun1_su.py restart
 
-fab -f aliyun1_bk.py backup
+# fab -f aliyun1_bk.py backup

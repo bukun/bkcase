@@ -28,5 +28,10 @@ def update_proj(projdic):
     with cd(projdic['projws']):
         with settings(prompts=coding_prompts):
             run('git pull')
-        run('{pip} install doc/requirements.txt'.format(pip=os.path.join(projdic['vpy'], 'bin/pip3')))
+        run('{pip} install -r doc/requirements.txt'.format(pip=os.path.join(projdic['vpy'], 'bin/pip3')))
         run('{python} helper.py -i init'.format(python= os.path.join(projdic['vpy'], 'bin/python3')))
+
+
+def update_sys():
+    run('aptitude update')
+    run('aptitude -y dist-upgrade')
