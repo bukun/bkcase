@@ -9,6 +9,7 @@ from helper import backup_db, update_proj
 from cfg import wang1_cfg, wang1_db_cfg, wang1_proj_cfg
 
 env.hosts = ['{user_name}@{host}'.format(user_name=wang1_cfg['user_name'], host=wang1_cfg['host'])]
+env.port = '11022'
 env.password = wang1_cfg['user_pass']
 
 

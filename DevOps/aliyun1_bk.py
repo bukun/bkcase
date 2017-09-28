@@ -9,6 +9,7 @@ from cfg import aliyun1_cfg, aliyun1_db_cfg, aliyun1_proj_cfg
 from helper import backup_db, update_proj
 
 env.hosts = ['{user_name}@{host}'.format(user_name=aliyun1_cfg['user_name'], host=aliyun1_cfg['host'])]
+env.port = '11022'
 env.password = aliyun1_cfg['user_pass']
 
 

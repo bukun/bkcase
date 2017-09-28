@@ -6,6 +6,7 @@ from fabric.api import run, env
 from cfg import aliyun3_cfg
 
 env.hosts = ['{user_name}@{host}'.format(user_name=aliyun3_cfg['user_name'], host=aliyun3_cfg['host'])]
+env.port = '11022'
 env.password = aliyun3_cfg['user_pass']
 
 
