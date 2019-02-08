@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+#!/usr/bin/python3
 
 import os
 import sys
@@ -17,6 +17,9 @@ for wroot, wdirs, wfiles in os.walk(os.getcwd()):
             the_file = os.path.join(wroot, wfile)
             print(the_file)
             cnts = open(the_file).read()
+            if 'ca-pub-4505825019574578' in cnts:
+                print('skip')
+                continue
             cnts = cnts.replace('</head>', ad_str)
             with open(the_file, 'w' ) as fo:
                 fo.write(cnts)
