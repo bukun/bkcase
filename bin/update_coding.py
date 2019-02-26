@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 
 
@@ -18,10 +20,10 @@ for fthe_dir in fthe_dirs:
     # os.popen('git pull')
     os.system('git pull')
 
-os.chdir('/home/bk/opt/coding/book_ogc_standard/ogc_standard_rst')
-os.system('source ~/vpy_rst/bin/activate')
-os.system('make html')
+# os.chdir('/home/bk/opt/coding/book_ogc_standard/ogc_standard_rst')
+# os.system('source ~/vpy_rst/bin/activate')
+# os.system('make html')
 
-os.chdir('/home/bk/opt/coding/book_webgis/webgis_rst')
-os.system('source ~/vpy_rst/bin/activate')
-os.system('make html')
+# os.chdir('/home/bk/opt/coding/book_webgis/webgis_rst')
+# os.system('source ~/vpy_rst/bin/activate')
+# os.system('make html')
