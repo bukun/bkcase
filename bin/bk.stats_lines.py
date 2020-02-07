@@ -31,6 +31,10 @@ def run_lines(inpath, tpnames):
             cnts = open(in_file).readlines()
             for cnt in cnts:
                 cnt = cnt.rstrip()
+                if cnt.strip() == '':
+                    continue
+                if cnt.strip()[0] in ['#']:
+                    continue           
                 if len(cnt) > 0:
                     fo.write("{0}: {1}\n".format(str(cnt_num).zfill(5), cnt))
                     cnt_num += 1
