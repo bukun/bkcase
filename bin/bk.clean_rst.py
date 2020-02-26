@@ -3,13 +3,18 @@
 
 import os
 import shutil
+
+'''
+对图片进行自动处理。
+'''
+
+import os
+import sys
+import shutil
 import re
 
-######################################################################
 
-# 处理图片
-
-def fig_check_condition(instr):
+def check_if_fig(instr):
     '''
     对条件进行判断
     '''
@@ -65,14 +70,16 @@ def fig_get_file_path(inroot, wname):
                 # print(outpath)
                 return outpath
     # print('not find')
-    return ''
+    return 'occupy.png'
 
 
-def fig_bianli_chili_include(inws):
+def clean_figs(inws):
     '''
     对rst文件中的图片，程序等引用外部文件的进行处理
     '''
     for wroot, wdirs, wfiles in os.walk(inws):
+        if '_build' in wroot:
+            continue
         for wfile in wfiles:
             if wfile.endswith('.rst'):
                 # print(wfile)
@@ -83,24 +90,20 @@ def fig_bianli_chili_include(inws):
                 cnts = open(cur_file).readlines()
                 fo = open(tep_name, 'w')
                 for cnt in cnts:
-                    if fig_check_condition(cnt) == True:
+                    if check_if_fig(cnt) == True:
                         img_name = fig_get_file_name(cnt)
                         outpath = ''
                         if img_name:
                             outpath = fig_get_file_path(wroot, img_name)
 
                         if outpath == '':
-                            cnt = '{qian} {imgpath}\n'.format(
-                                qian=' '.join(cnt.strip().split()[:-1]),
-                                imgpath= os.path.join( '/' + inws, 'occupy.png')
-                            )
+                            pass
                         else:
                             # 根据当前路径处理
                             outpath = '.' + outpath[len(wroot):]
                             cnt = '{qian} {imgpath}\n'.format(
                                 qian=' '.join(cnt.strip().split()[:-1]),
-                                imgpath=outpath
-                            )
+                                imgpath=outpath)
 
                     fo.write(cnt)
                 fo.close()
@@ -109,52 +112,55 @@ def fig_bianli_chili_include(inws):
                 shutil.move(tep_name, cur_file)
 
 
-########################################################
+##############################################################################################################
 
-def create_chfile(chfile):
-    with open(chfile, 'w') as fo:
-        fo.write('''
-==========================        
-Chapter        
-==========================
-
-''')
 
 def do_for_chapter(secws):
+    '''
+    '''
     sec_list = os.listdir(secws)
+    sec_list = [x for x in sec_list if x.startswith('sec') and not x.endswith('_files')]
     sec_list.sort()
 
     index = 1
     rst_new_list = []
     for sec_dir in sec_list:
-        if sec_dir.startswith('sec') and not sec_dir.endswith('files'):
-            if os.path.isdir(os.path.join(secws, sec_dir)):
-                isfile = False
-            else:
-                isfile = True
 
-            tt = re.split('[-_]',sec_dir )
-            feaname = '-'.join(tt[1:])
+        tt = re.split('[-_]', sec_dir)
+        feaname = tt[1]
 
-            if isfile:
-                outname = 'sec{0}-{1}'.format(index, feaname)
+        outname = 'sec{0}-{1}'.format(str(index).zfill(2), feaname)
+
+        inpath = os.path.join(secws, sec_dir)
+
+        # 对于 section， 要区分是否文件
+        if os.path.isfile(inpath):
+            if outname.endswith('.rst'):
+                pass
             else:
-                outname = 'sec{0}-{1}/section'.format(index, feaname)
-            index = index + 1
+                # 在进行 split 时，有可能忽略了后缀
+                outname = outname + '.rst'
             rst_new_list.append(outname)
-            inpath = os.path.join(secws, sec_dir)
-            outpath = os.path.join(secws, outname)
+        else:
+            rst_new_list.append(os.path.join(outname, 'section.rst'))
 
-            shutil.move(inpath, outpath)
+        outpath = os.path.join(secws, outname)
+        shutil.move(inpath, outpath)
 
-    chfile = os.path.join(secws, 'chapter.rst')
-    if os.path.exists(chfile):
+        index = index + 1
+
+    idxfile = os.path.join(secws, 'chapter.rst')
+    if os.path.exists(idxfile):
         pass
     else:
-        create_chfile(chfile)
-    sec_cnt = open(chfile).readlines()
+        with open(idxfile, 'w') as fo:
+            fo.write('''Chapter
+==============================================
 
-    with open(chfile, 'w') as fo:
+''')
+    sec_cnt = open(idxfile).readlines()
+
+    with open(idxfile, 'w') as fo:
         for uu in sec_cnt:
             if '.. toctree::' in uu:
                 break
@@ -165,7 +171,7 @@ def do_for_chapter(secws):
             fo.write('   {0}\n'.format(x))
 
 
-def do_for_book(secws):
+def do_for_part(secws):
     sec_list = os.listdir(secws)
     sec_list.sort()
 
@@ -173,19 +179,65 @@ def do_for_book(secws):
     rst_new_list = []
     for sec_dir in sec_list:
         if sec_dir.startswith('ch'):
-            tt = re.split('[-_]',sec_dir )
-            feaname = '-'.join(tt[1:])
+            tt = re.split('[-_]', sec_dir)
+            feaname = tt[1]
 
             outname = 'ch{0}-{1}'.format(str(index).zfill(2), feaname)
-
+            index = index + 1
+            rst_new_list.append(outname)
             inpath = os.path.join(secws, sec_dir)
             outpath = os.path.join(secws, outname)
 
             shutil.move(inpath, outpath)
 
-            rst_new_list.append(outname)
+    idxfile = os.path.join(secws, 'part.rst')
+    if os.path.exists(idxfile):
+        pass
+    else:
+        with open(idxfile, 'w') as fo:
+            fo.write('''Part
+==============================================
 
-            index = index + 1
+''')
+    sec_cnt = open(idxfile).readlines()
+
+    with open(idxfile, 'w') as fo:
+        for uu in sec_cnt:
+            if '.. toctree::' in uu:
+                break
+            else:
+                fo.write(uu)
+        fo.write('''.. toctree::\n   :maxdepth: 3\n   :numbered: 3\n\n''')
+        for x in rst_new_list:
+            fo.write('   {0}/chapter\n'.format(x))
+
+
+def do_for_book(secws):
+    sec_list = os.listdir(secws)
+    sec_list = [x for x in sec_list if x[:2] in ['ch', 'pt']]
+    sec_list.sort()
+
+    index = 1
+    rst_new_list = []
+    for sec_dir in sec_list:
+        tt = re.split('[-_]', sec_dir)
+        print(tt)
+        feaname = tt[1]
+        if sec_dir.startswith('ch'):
+            outname = 'ch{0}-{1}'.format(str(index).zfill(2), feaname)
+        else:
+            # for `part`.
+            outname = 'pt{0}-{1}'.format(str(index).zfill(2), feaname)
+
+        inpath = os.path.join(secws, sec_dir)
+        outpath = os.path.join(secws, outname)
+
+        shutil.move(inpath, outpath)
+
+        rst_new_list.append(outname)
+
+        index = index + 1
+
     if os.path.exists(os.path.join(secws, 'index.rst')):
         pass
     else:
@@ -198,26 +250,44 @@ def do_for_book(secws):
                 break
             else:
                 fo.write(uu)
-        fo.write('''.. toctree::\n   :maxdepth: 3\n   :numbered: 3\n\n''')
+
+
+        if rst_new_list[0].startswith('ch'):
+            fo.write('''.. toctree::\n   :maxdepth: 3\n   :numbered: 3\n\n''')
+        else:
+            fo.write('''.. toctree::\n\n''')
+
         for x in rst_new_list:
-            fo.write('   {0}/chapter\n'.format(x))
+            if x.startswith('ch'):
+                fo.write('   {0}/chapter\n'.format(x))
+            else:
+                fo.write('   {0}/part\n'.format(x))
 
 
-def clean_section():
+def clean_book():
+    '''
+    do, one by one.
+    '''
+
     for wroot, wdirs, wfiles in os.walk('./'):
         for wdir in wdirs:
             if wdir.startswith('sec'):
                 inws = os.path.join(wroot, wdir)
                 # do_for_section(inws)
-            elif wdir.startswith('ch'):
+    for wroot, wdirs, wfiles in os.walk('./'):
+        for wdir in wdirs:
+            if wdir.startswith('ch'):
                 inws = os.path.join(wroot, wdir)
                 do_for_chapter(inws)
+    for wroot, wdirs, wfiles in os.walk('./'):
+        for wdir in wdirs:
+            if wdir.startswith('pt'):
+                inws = os.path.join(wroot, wdir)
+                do_for_part(inws)
     do_for_book(os.getcwd())
 
 
 if __name__ == '__main__':
-    fuws = os.path.abspath(os.getcwd())
-    # 处理章节
-    clean_section()
-    # 处理图片
-    fig_bianli_chili_include(fuws)
+    fuws = os.path.join(os.getcwd())
+    clean_book()
+    clean_figs(fuws)
