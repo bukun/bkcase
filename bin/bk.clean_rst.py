@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-
+#!/usr/bin/env python3
 
 import os
 import shutil
@@ -114,12 +113,17 @@ def clean_figs(inws):
 
 ##############################################################################################################
 
+def get_sec_rst(secws, outname):
+    ffs = os.listdir(os.path.join(secws, outname))
+    for ff in ffs:
+        if ff.startswith('py') and ff.endswith('.rst'):
+            return ff
 
 def do_for_chapter(secws):
     '''
     '''
     sec_list = os.listdir(secws)
-    sec_list = [x for x in sec_list if x.startswith('sec') and not x.endswith('_files')]
+    sec_list = [x for x in sec_list if x.startswith('sec') and not x.endswith('_files') and (x[-3:] not in  ['jpg', 'gif', 'png']) ]
     sec_list.sort()
 
     index = 1
@@ -127,11 +131,14 @@ def do_for_chapter(secws):
     for sec_dir in sec_list:
 
         tt = re.split('[-_]', sec_dir)
-        feaname = tt[1]
+        feaname = '-'.join(tt[1:])
 
         outname = 'sec{0}-{1}'.format(str(index).zfill(2), feaname)
 
         inpath = os.path.join(secws, sec_dir)
+
+        outpath = os.path.join(secws, outname)
+        shutil.move(inpath, outpath)
 
         # 对于 section， 要区分是否文件
         if os.path.isfile(inpath):
@@ -142,10 +149,11 @@ def do_for_chapter(secws):
                 outname = outname + '.rst'
             rst_new_list.append(outname)
         else:
-            rst_new_list.append(os.path.join(outname, 'section.rst'))
-
-        outpath = os.path.join(secws, outname)
-        shutil.move(inpath, outpath)
+            ff = get_sec_rst(secws, outname)
+            if ff:
+                rst_new_list.append(os.path.join(outname, ff))
+            else:
+                rst_new_list.append(os.path.join(outname, 'section.rst'))
 
         index = index + 1
 
@@ -243,6 +251,8 @@ def do_for_book(secws):
     else:
         return False
     sec_cnt = open(os.path.join(secws, 'index.rst')).readlines()
+
+    print(rst_new_list)
 
     with open(os.path.join(secws, 'index.rst'), 'w') as fo:
         for uu in sec_cnt:
